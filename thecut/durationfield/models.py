@@ -85,6 +85,12 @@ class RelativeDeltaField(ISO8601DurationField):
     :py:class:`~isodate.duration.Duration`.
     """
 
+    def clean(self, value, model_instance):
+        _value = self.get_prep_value(value)  # translate relativedelta to ISO-8601 format
+        self.validate(_value, model_instance)
+        self.run_validators(value)
+        return value
+
     def formfield(self, **kwargs):
         defaults = {'form_class': forms.RelativeDeltaChoiceField}
         defaults.update(kwargs)
