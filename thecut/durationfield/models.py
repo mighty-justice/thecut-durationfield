@@ -121,3 +121,6 @@ class RelativeDeltaField(ISO8601DurationField):
         val = self._get_val_from_obj(obj)
         s = self.get_prep_value(val)
         return '' if s is None else s
+
+    def value_from_object(self, obj):
+        return self.value_to_string(obj)
